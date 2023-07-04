@@ -1,40 +1,81 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://192.168.1.3:3000',
+  baseURL: 'http://192.168.1.230:3000',
   timeout: 5000,
 });
-
-const getItemsPage = async (page) => {
+//http://localhost:3000/ibibt/searchProduct/12?page=1
+const getItemsPage = async (user, page, searchTerm) => {
   try {
-    const response = await api.get(`/ibibt/getpage?page=${page}`);
+    const response = await api.get(`/ibibt/searchProduct/${user}?page=${page}&search=${searchTerm}`);
     console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;
   }
 };
-const getImportItemsPage = async (page) => {
+//http://localhost:3000/ibibt/getimportpage/12?page=1 
+const getImportItemsPage = async (user, page) => {
   try {
-    const response = await api.get(`/ibibt/getimportpage?page=${page}`);
+    const response = await api.get(`/ibibt/getimportpage/${user}?page=${page}`);
     console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;
   }
 };
-const getExportItemsPage = async (page) => {
+//http://localhost:3000/ibibt/getexportpage/12?page=1 
+const getExportItemsPage = async (user, page) => {
   try {
-    const response = await api.get(`/ibibt/getexportpage?page=${page}`);
+    const response = await api.get(`/ibibt/getexportpage/${user}?page=${page}`);
     console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;
+  }
+};
+const detailSanPham = async (sp) => {
+  try {
+    const response = await api.get(`/ibibt/detailproduct?sp=${sp}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+const detailSanPhamXuat = async (sp) => {
+  try {
+    const response = await api.get(`/ibibt/detailproductxuat?sp=${sp}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+const Login = async (username, password) => {
+  try {
+    const response = await api.post(`/ibibt/Login`, {
+      username,
+      password
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    if (error.response && error.response.status === 400) {
+      console.log(error.response.data.message)
+      return (error.response.data);
+    } else {
+      throw error;
+    }
   }
 };
 
 export default {
-    getItemsPage,
-    getExportItemsPage,
-    getImportItemsPage
-  };
+  getItemsPage,
+  getExportItemsPage,
+  getImportItemsPage,
+  Login,
+  detailSanPham,
+  detailSanPhamXuat
+};

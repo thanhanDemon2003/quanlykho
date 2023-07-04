@@ -1,15 +1,16 @@
-import React, { useEffect, useState  } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from '../API/Api';
 
 
-const Nhapkho = ({navigation}) => {
-  
+const Nhapkho = (props) => {
+  const { navigation, route } = props
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
+  const { user } = route.params;
 
   const handleItemPress = (item) => {
-    navigation.navigate('Chitiet', { item: item });
+    navigation.navigate('Chitiet', { sp: item.ID_IBT });
   };
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const Nhapkho = ({navigation}) => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.getImportItemsPage(page);
+      const response = await axios.getImportItemsPage(user, page);
       const data = response.items;
       setItems((prevItems) => [...prevItems, ...data]);
     } catch (error) {
@@ -27,12 +28,13 @@ const Nhapkho = ({navigation}) => {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.item} onPress={()=> handleItemPress(item)}>
+    <TouchableOpacity style={styles.item} onPress={() => handleItemPress(item)}>
       <View style={styles.itemContent}>
-        <Text style={styles.text}>{item.TEN_KH}</Text>
+        <Text style={styles.text}>ND: {item.GHI_CHU}</Text>
+        <Text style={styles.text1}>Trạng thái: {item.TRANG_THAI}</Text>
         <View style={styles.itemDetails}>
-        <Text style={styles.detailText}>{item.SO_THUNG} Thùng</Text>
-        <Text style={styles.detailText1}>{item.KHOI_LUONG} Kg</Text>
+          <Text style={styles.detailText}>{item.SO_THUNG} Thùng</Text>
+          <Text style={styles.detailText1}>{item.KHOI_LUONG} Kg</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -46,7 +48,7 @@ const Nhapkho = ({navigation}) => {
       <FlatList
         data={items}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.ID_IBT}
         numColumns={1}
         contentContainerStyle={styles.listContainer}
         onEndReached={handleLoadMore}
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'left',
     justifyContent: 'Space-between',
     marginVertical: 10,
-    height: 100,
+    height: 110,
     backgroundColor: '#fff',
     borderRadius: 10,
     borderColor: 'black',
@@ -82,19 +84,26 @@ const styles = StyleSheet.create({
     margin: 10
   },
   text: {
-    left: 5,
+    left: 3,
     fontSize: 16,
     fontWeight: 'bold',
     color: 'black'
   },
+  text1: {
+    top: 5,
+    left: 3,
+    fontSize: 16,
+    fontWeight: 'normal',
+    color: 'black'
+  },
   itemDetails: {
-    position:'absolute',
+    position: 'absolute',
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginTop:60
+    marginTop: 60
   },
   detailText: {
-
+    marginTop: 10,
     fontSize: 15,
     fontWeight: 'bold',
     color: 'blue',

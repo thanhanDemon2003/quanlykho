@@ -3,14 +3,14 @@ import { FlatList, Text, View, StyleSheet, TouchableOpacity } from 'react-native
 import axios from '../API/Api';
 
 
-const Xuatkho = ({navigation}) => {
-  
+const Xuatkho = (props) => {
+  const {navigation, route} = props;
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
-
+  const {user}= route.params;
   const handleItemPress = (item) => {
     // Chuyển sang trang mới và truyền dữ liệu của item 
-    navigation.navigate('Chitiet', { item: item });
+    navigation.navigate('Hangxuat', { sp: item.ID_OBT });
   };
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Xuatkho = ({navigation}) => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.getExportItemsPage(page);
+      const response = await axios.getExportItemsPage(user, page);
       const data = response.items;
       setItems((prevItems) => [...prevItems, ...data]);
     } catch (error) {
@@ -30,9 +30,11 @@ const Xuatkho = ({navigation}) => {
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.item} onPress={()=> handleItemPress(item)}>
       <View style={styles.itemContent}>
-        <Text style={styles.text}>{item.TEN_SP}</Text>
+        <Text style={styles.text}>ND: {item.GHI_CHU}</Text>
+        <Text style={styles.text1}>Ngày xuất: {item.NGAY_XUAT}</Text>
+        <Text style={styles.text1}>Trạng thái: {item.TRANG_THAI}</Text>
         <View style={styles.itemDetails}>
-        <Text style={styles.detailText}>{item.SL_TONKHO} Thùng</Text>
+        <Text style={styles.detailText}>{item.SO_THUNG} Thùng</Text>
         <Text style={styles.detailText1}>{item.KHOI_LUONG} Kg</Text>
         </View>
       </View>
@@ -47,7 +49,7 @@ const Xuatkho = ({navigation}) => {
       <FlatList
         data={items}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.ID_OBT}
         numColumns={1}
         contentContainerStyle={styles.listContainer}
         onEndReached={handleLoadMore}
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'left',
     justifyContent: 'Space-between',
     marginVertical: 10,
-    height: 100,
+    height: 170,
     backgroundColor: '#fff',
     borderRadius: 10,
     borderColor: 'black',
@@ -88,11 +90,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black'
   },
+  text1: {
+    top: 5,
+    left: 5,
+    fontSize: 16,
+    fontWeight: 'normal',
+    color: 'black'
+  },
   itemDetails: {
+    left: 5,
     position:'absolute',
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginTop:60
+    marginTop:120
   },
   detailText: {
 

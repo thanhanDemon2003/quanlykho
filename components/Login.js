@@ -1,19 +1,40 @@
-import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
 import { CheckBox, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet } from 'react-native';
+import axios from './API/Api';
+import { AuthContext } from './Context/Appcontext'
 
-const LoginForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const LoginForm = ({ navigation }) => {
+  const [username, setUsername] = useState('tung.nt');
+  const [password, setPassword] = useState('123@123a');
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberPassword, setRememberPassword] = useState(false);
+  const [rememberPassword, setRememberPassword] = useState(true);
+  const { loginContext } = useContext(AuthContext);
 
-  const handleLogin = () => {
-    // Xử lý logic đăng nhập tại đây
-    console.log('Username:', username);
-    console.log('Password:', password);
+  const handleLogin = async () => {
+    try {
+      const response = await axios.Login(username, password);
+      const user = response.user
+      console.log('hiiiii >>>', response.success);
+
+      if (user) {
+        loginContext(user);
+        console.log(AuthContext);
+        Alert.alert('Thông Báo', 'Đăng Nhập Thành Công')
+        navigation.navigate('Bottomtab')
+      }
+      else {
+        Alert.alert('Thông Báo', response.message)
+      }
+      console.log('Username:', username);
+      console.log('Password:', password);
+    }
+    catch (error) {
+      console.log(error);
+      Alert.alert('Thông Báo', 'Lỗi từ server hoặc lỗi mạng');
+    }
   };
 
   const toggleShowPassword = () => {
@@ -70,16 +91,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 20,
   },
-  text:{
+  text: {
     textAlign: 'center',
     fontSize: 30,
     fontWeight: 'bold',
     color: 'blue',
-    marginBottom:50
+    marginBottom: 50
   }
   ,
   input: {
-    height: 40,
+    height: 50,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
@@ -92,7 +113,7 @@ const styles = StyleSheet.create({
   },
   passwordInput: {
     flex: 1,
-    height: 40,
+    height: 50,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
@@ -104,6 +125,7 @@ const styles = StyleSheet.create({
   },
   passwordIcon: {
     marginLeft: 5,
+    marginTop: -10
   },
   checkboxContainer: {
     flexDirection: 'row',
@@ -115,7 +137,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 10,
-    
+
   },
 });
 
