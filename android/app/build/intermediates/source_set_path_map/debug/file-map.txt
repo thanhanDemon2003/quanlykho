@@ -19,7 +19,7 @@ com.quanlykho.app-recyclerview-1.1.0-17 C:\Users\ThanhAn\.gradle\caches\transfor
 com.quanlykho.app-jetified-flipper-0.182.0-18 C:\Users\ThanhAn\.gradle\caches\transforms-3\aca25530bcaa77f683598faa582134c3\transformed\jetified-flipper-0.182.0\res
 com.quanlykho.app-jetified-react-android-0.72.0-debug-19 C:\Users\ThanhAn\.gradle\caches\transforms-3\b65107381eb04de4935992b7f9f75be6\transformed\jetified-react-android-0.72.0-debug\res
 com.quanlykho.app-lifecycle-viewmodel-2.3.1-20 C:\Users\ThanhAn\.gradle\caches\transforms-3\c9cf141449a23f4bfaa6ae81cbbf55b2\transformed\lifecycle-viewmodel-2.3.1\res
-com.quanlykho.app-jetified-core-ktx-1.5.0-21 C:\Users\ThanhAn\.gradle\caches\transforms-3\d1bc39dd00aa9872e8a7b2d7fdb64fdf\transformed\jetified-core-ktx-1.5.0\res
+com.quanlykho.app-jetified-core-ktx-1.6.0-21 C:\Users\ThanhAn\.gradle\caches\transforms-3\d9af4d4f5e8dc58ed53f823f7d41004a\transformed\jetified-core-ktx-1.6.0\res
 com.quanlykho.app-transition-1.2.0-22 C:\Users\ThanhAn\.gradle\caches\transforms-3\dccbc9a3aca12db0ac8ad41ee8268fa1\transformed\transition-1.2.0\res
 com.quanlykho.app-jetified-autofill-1.1.0-23 C:\Users\ThanhAn\.gradle\caches\transforms-3\f1cb3467a3338b80264ea9a8c5d83279\transformed\jetified-autofill-1.1.0\res
 com.quanlykho.app-sqlite-2.2.0-24 C:\Users\ThanhAn\.gradle\caches\transforms-3\f3487df41d7ca14a9229555dcbb9e10c\transformed\sqlite-2.2.0\res
@@ -32,5 +32,8 @@ com.quanlykho.app-mergeDebugResources-30 C:\Users\ThanhAn\Desktop\QuanLyKho\andr
 com.quanlykho.app-merged_res-31 C:\Users\ThanhAn\Desktop\QuanLyKho\android\app\build\intermediates\merged_res\debug
 com.quanlykho.app-debug-32 C:\Users\ThanhAn\Desktop\QuanLyKho\android\app\src\debug\res
 com.quanlykho.app-main-33 C:\Users\ThanhAn\Desktop\QuanLyKho\android\app\src\main\res
-com.quanlykho.app-packaged_res-34 C:\Users\ThanhAn\Desktop\QuanLyKho\node_modules\react-native-safe-area-context\android\build\intermediates\packaged_res\debug
-com.quanlykho.app-packaged_res-35 C:\Users\ThanhAn\Desktop\QuanLyKho\node_modules\react-native-screens\android\build\intermediates\packaged_res\debug
+com.quanlykho.app-packaged_res-34 C:\Users\ThanhAn\Desktop\QuanLyKho\node_modules\react-native-gesture-handler\android\build\intermediates\packaged_res\debug
+com.quanlykho.app-packaged_res-35 C:\Users\ThanhAn\Desktop\QuanLyKho\node_modules\react-native-reanimated\android\build\intermediates\packaged_res\debug
+com.quanlykho.app-packaged_res-36 C:\Users\ThanhAn\Desktop\QuanLyKho\node_modules\react-native-safe-area-context\android\build\intermediates\packaged_res\debug
+com.quanlykho.app-packaged_res-37 C:\Users\ThanhAn\Desktop\QuanLyKho\node_modules\react-native-screens\android\build\intermediates\packaged_res\debug
+com.quanlykho.app-packaged_res-38 C:\Users\ThanhAn\Desktop\QuanLyKho\node_modules\react-native-vector-icons\android\build\intermediates\packaged_res\debug
