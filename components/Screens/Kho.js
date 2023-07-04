@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginTop: 90
+    marginTop: 100
   },
   detailText: {
 
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     color: 'blue',
   },
   detailText1: {
-    marginLeft: 200,
+    marginLeft: '50%',
     fontSize: 15,
     fontWeight: 'bold',
     color: 'blue',
