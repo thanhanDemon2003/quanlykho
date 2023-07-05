@@ -9,8 +9,7 @@ const Kho = (props) => {
   const { user } = route.params;
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
-  const [searchTerm, setsearchTerm] = useState('')
-  console.log(user, searchTerm, '11111111111')
+  const [searchTerm, setsearchTerm] = useState('');
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -22,29 +21,29 @@ const Kho = (props) => {
   }, []);
 
   const handleSearchButtonPress = () => {
-    console.log(searchTerm, '222222')
     setItems([]);
     setPage(1);
-    fetchData();
-
   };
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [page, searchTerm]);
 
   const fetchData = async () => {
     try {
       const response = await axios.getItemsPage(user, page, searchTerm);
       const data = response.products;
-      setItems((prevItems) => [...prevItems, ...data]);
+      if (page === 1) {
+        setItems(data); // Ghi đè dữ liệu mục mới khi ở trang đầu tiên
+      } else {
+        setItems((prevItems) => [...prevItems, ...data]); // Thêm dữ liệu mục mới vào cuối danh sách
+      }
     } catch (error) {
       console.log('error>>', error);
     }
   };
 
-
   const renderItem = ({ item }) => (
-
     <View style={styles.item}>
       <View style={styles.itemContent}>
         <Text style={styles.text}>{item.TEN_SP}</Text>
@@ -57,10 +56,11 @@ const Kho = (props) => {
       </View>
     </View>
   );
+
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
-    fetchData();
   };
+
   return (
     <View style={styles.container}>
       <TextInput
