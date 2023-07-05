@@ -1,6 +1,7 @@
 import React, { useEffect, useState  } from 'react';
 import { FlatList, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from '../API/Api';
+import moment from 'moment';
 
 
 const Xuatkho = (props) => {
@@ -31,7 +32,7 @@ const Xuatkho = (props) => {
     <TouchableOpacity style={styles.item} onPress={()=> handleItemPress(item)}>
       <View style={styles.itemContent}>
         <Text style={styles.text}>ND: {item.GHI_CHU}</Text>
-        <Text style={styles.text1}>Ngày xuất: {item.NGAY_XUAT}</Text>
+        <Text style={styles.text1}>Hạn sử dụng: {moment(item.NGAY_XUAT).format('DD-MM-YYYY')}</Text>
         <Text style={styles.text1}>Trạng thái: {item.TRANG_THAI}</Text>
         <View style={styles.itemDetails}>
         <Text style={styles.detailText}>{item.SO_THUNG} Thùng</Text>

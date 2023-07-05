@@ -1,6 +1,8 @@
 import React, { useEffect, useState  } from 'react';
 import { FlatList, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from '../API/Api';
+import moment from 'moment';
+
 
 
 const Hang = ({route}) => {
@@ -28,11 +30,11 @@ const Hang = ({route}) => {
     <View style={styles.item}>
       <View style={styles.itemContent}>
         <Text style={styles.text}>Tên sản phẩm: {item.TEN_SP}</Text>
-        <Text style={styles.text1}>Hạn sử dụng: {item.HSD}</Text>
+        <Text style={styles.text1}>Hạn sử dụng: {moment(item.HSD).format('DD-MM-YYYY')}</Text>
         <Text style={styles.text1}>Ref: {item.REF}</Text>
         <View style={styles.itemDetails}>
-        <Text style={styles.detailText}>{item.SO_LUONG} Thùng</Text>
-        <Text style={styles.detailText1}>{item.KHOI_LUONG} Kg</Text>
+        <Text style={styles.detailText}>{item.SO_LUONG} Thùng - </Text>
+        <Text style={styles.detailText1}> {item.KHOI_LUONG} Kg</Text>
         </View>
       </View>
     </View>
@@ -66,10 +68,6 @@ const styles = StyleSheet.create({
     justifyContent: 'Space-between',
     marginVertical: 10,
     height: 170,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    borderColor: 'black',
-    borderWidth: 0.5,
 
   },
   itemContent: {
@@ -97,12 +95,12 @@ const styles = StyleSheet.create({
     marginTop:130
   },
   detailText: {
+    left: 5,
     fontSize: 15,
     fontWeight: 'bold',
     color: 'blue',      
   },
   detailText1: {
-    marginLeft: 200,
     fontSize: 15,
     fontWeight: 'bold',
     color: 'blue',

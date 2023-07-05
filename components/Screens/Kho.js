@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BackHandler } from 'react-native';
 import { FlatList, Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import axios from '../API/Api';
-import { AuthContext } from '../Context/Appcontext';
+import moment from 'moment';
 
 const Kho = (props) => {
   const { navigation, route } = props;
@@ -20,13 +20,13 @@ const Kho = (props) => {
 
     return () => backHandler.remove();
   }, []);
-  
+
   const handleSearchButtonPress = () => {
-    console.log(searchTerm,'222222')
+    console.log(searchTerm, '222222')
     setItems([]);
     setPage(1);
     fetchData();
-    
+
   };
   useEffect(() => {
     fetchData();
@@ -42,11 +42,13 @@ const Kho = (props) => {
     }
   };
 
+
   const renderItem = ({ item }) => (
+
     <View style={styles.item}>
       <View style={styles.itemContent}>
         <Text style={styles.text}>{item.TEN_SP}</Text>
-        <Text style={styles.text1}>Hạn sử dụng: {item.HSD}</Text>
+        <Text style={styles.text1}>Hạn sử dụng: {moment(item.HSD).format('DD-MM-YYYY')}</Text>
         <Text style={styles.text1}>Ref: {item.REF}</Text>
         <View style={styles.itemDetails}>
           <Text style={styles.detailText}>{item.SL_TONKHO} Thùng</Text>
@@ -88,10 +90,10 @@ const styles = StyleSheet.create({
     flex: 1
   },
   searchBar: {
-    left:10,
+    left: 10,
     marginTop: 20,
     height: 40,
-    width:260,
+    width: 260,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 10,
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     width: 100,
-    marginLeft:280,
+    marginLeft: 280,
     marginTop: -50,
     backgroundColor: '#ccc',
     paddingVertical: 10,

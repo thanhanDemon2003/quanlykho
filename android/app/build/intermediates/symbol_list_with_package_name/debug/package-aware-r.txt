@@ -1882,6 +1882,8 @@ menu example_menu
 menu example_menu2
 mipmap ic_launcher
 mipmap ic_launcher_round
+mipmap khoavt
+mipmap khoavt1
 plurals mtrl_badge_content_description
 string abc_action_bar_home_description
 string abc_action_bar_up_description

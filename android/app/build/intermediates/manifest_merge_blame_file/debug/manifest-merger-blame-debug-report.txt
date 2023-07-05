@@ -27,12 +27,12 @@
 18        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 18-->[androidx.core:core:1.7.0] C:\Users\ThanhAn\.gradle\caches\transforms-3\9969c86cde056edf2e17edbdcb1c1cda\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
 19        android:debuggable="true"
-20        android:icon="@mipmap/ic_launcher"
-20-->C:\Users\ThanhAn\Desktop\QuanLyKho\android\app\src\main\AndroidManifest.xml:8:7-41
+20        android:icon="@mipmap/khoavt1"
+20-->C:\Users\ThanhAn\Desktop\QuanLyKho\android\app\src\main\AndroidManifest.xml:8:7-37
 21        android:label="@string/app_name"
 21-->C:\Users\ThanhAn\Desktop\QuanLyKho\android\app\src\main\AndroidManifest.xml:7:7-39
-22        android:roundIcon="@mipmap/ic_launcher_round"
-22-->C:\Users\ThanhAn\Desktop\QuanLyKho\android\app\src\main\AndroidManifest.xml:9:7-52
+22        android:roundIcon="@mipmap/khoavt"
+22-->C:\Users\ThanhAn\Desktop\QuanLyKho\android\app\src\main\AndroidManifest.xml:9:7-41
 23        android:theme="@style/AppTheme"
 23-->C:\Users\ThanhAn\Desktop\QuanLyKho\android\app\src\main\AndroidManifest.xml:11:7-38
 24        android:usesCleartextTraffic="true" >
