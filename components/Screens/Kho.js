@@ -3,45 +3,51 @@ import { BackHandler } from 'react-native';
 import { FlatList, Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import axios from '../API/Api';
 import moment from 'moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetInfo from '@react-native-community/netinfo';
 
-const Kho = (props) => {
-  const { navigation, route } = props;
-  const { user } = route.params;
+const Kho = ({user}) => {
+
+
+  console.log(user)
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
   const [searchTerm, setsearchTerm] = useState('');
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.replace('Bottomtab');
-      return true;
-    });
-
-    return () => backHandler.remove();
-  }, []);
-
-  const handleSearchButtonPress = () => {
-    setItems([]);
-    setPage(1);
-  };
-
-  useEffect(() => {
     fetchData();
-  }, [page, searchTerm]);
+  }, []);
 
   const fetchData = async () => {
     try {
-      const response = await axios.getItemsPage(user, page, searchTerm);
-      const data = response.products;
-      if (page === 1) {
-        setItems(data); // Ghi đè dữ liệu mục mới khi ở trang đầu tiên
+      const state = await NetInfo.fetch();
+      let data;
+  
+      if (state.isConnected) {
+        const response = await axios.getItemsPage(user, page, searchTerm);
+        data = response.products;
+        await AsyncStorage.setItem('products', JSON.stringify(data));
       } else {
-        setItems((prevItems) => [...prevItems, ...data]); // Thêm dữ liệu mục mới vào cuối danh sách
+        const savedData = await AsyncStorage.getItem('products');
+        data = JSON.parse(savedData);
+      }
+  
+      if (page === 1) {
+        setItems(data);
+      } else {
+        setItems((prevItems) => [...prevItems, ...data]);
       }
     } catch (error) {
       console.log('error>>', error);
     }
   };
+
+  const handleSearchButtonPress = () => {
+    setItems([]);
+    setPage(1);
+    fetchData();
+  };
+
 
   const renderItem = ({ item }) => (
     <View style={styles.item}>
@@ -134,7 +140,7 @@ const styles = StyleSheet.create({
 
   },
   itemContent: {
-    position: 'relative',
+    position: 'position',
     margin: 10
   },
   text: {
@@ -154,16 +160,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginTop: 100
+    marginTop: 90
   },
   detailText: {
-
+    flex: 1,
+    textAlign:'left',
     fontSize: 15,
     fontWeight: 'bold',
     color: 'blue',
   },
   detailText1: {
-    marginLeft: '50%',
+    flex: 0,
+    textAlign:'right',
     fontSize: 15,
     fontWeight: 'bold',
     color: 'blue',

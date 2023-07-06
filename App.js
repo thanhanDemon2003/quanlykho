@@ -1,25 +1,32 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useContext } from 'react'
+import React, { createContext, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AuthProvider, AuthContext } from './components/Context/Appcontext';
 import AppNavigation from './components/Navigation/NavigationContainer';
 import LoginForm from './components/Login';
+import { StyleSheet, Text, View } from 'react-native';
 
-const App = () => {
- const  isLoggedIn = useContext(AuthContext);
-  return (
 
-    <AuthProvider>
-      <NavigationContainer>
-        <AppNavigation />
-      </NavigationContainer>
-    </AuthProvider>
+const NavigationFinal =() =>{
+  const { isLoggedIn } = useContext(AuthContext);
+  console.log('......', isLoggedIn);
+  return(
+    <NavigationContainer>
+    {isLoggedIn ? <AppNavigation /> : <LoginForm />}
+  </NavigationContainer>
   )
 }
+const App = () => {
 
-export default App
 
-const styles = StyleSheet.create({})
+  return (
+    <AuthProvider>
+     <NavigationFinal/>
+    </AuthProvider>
+  );
+};
+
+export default App;
+
+const styles = StyleSheet.create({});
