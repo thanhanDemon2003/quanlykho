@@ -1,14 +1,15 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect  } from 'react';
 import { View, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
 import { CheckBox, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet } from 'react-native';
 import axios from './API/Api';
 import { AuthContext } from './Context/Appcontext'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginForm = ({ navigation }) => {
-  const [username, setUsername] = useState('tung.nt');
-  const [password, setPassword] = useState('123@123a');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberPassword, setRememberPassword] = useState(true);
   const { loginContext } = useContext(AuthContext);
@@ -23,7 +24,13 @@ const LoginForm = ({ navigation }) => {
         loginContext(user);
         console.log(AuthContext);
         Alert.alert('Thông Báo', 'Đăng Nhập Thành Công')
-        navigation.navigate('Bottomtab')
+        if (rememberPassword) {
+          await AsyncStorage.setItem('username', username);
+          await AsyncStorage.setItem('password', password);
+        } else {
+          await AsyncStorage.removeItem('username');
+          await AsyncStorage.removeItem('password');
+        }
       }
       else {
         Alert.alert('Thông Báo', response.message)
@@ -36,7 +43,20 @@ const LoginForm = ({ navigation }) => {
       Alert.alert('Thông Báo', 'Lỗi từ server hoặc lỗi mạng');
     }
   };
-
+  useEffect(() => {
+    const getStoredCredentials = async () => {
+      const storedUsername = await AsyncStorage.getItem('username');
+      const storedPassword = await AsyncStorage.getItem('password');
+  
+      if (storedUsername && storedPassword) {
+        setUsername(storedUsername);
+        setPassword(storedPassword);
+        setRememberPassword(true);
+      }
+    };
+  
+    getStoredCredentials();
+  }, []);
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };

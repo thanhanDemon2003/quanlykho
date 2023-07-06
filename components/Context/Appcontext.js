@@ -1,20 +1,37 @@
-// AuthContext.js
-import React, { createContext, useState } from 'react';
+
+import React, { createContext, useState, useEffect } from 'react';
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-  const loginContext = (user) => {
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const savedLoginStatus = await AsyncStorage.getItem('isLoggedIn');
+      const savedUser = await AsyncStorage.getItem('user');
+      setIsLoggedIn(savedLoginStatus === 'true');
+      setUser(JSON.parse(savedUser));
+    };
+
+    checkLoginStatus();
+  }, []);
+
+  const loginContext = async (user) => {
     setIsLoggedIn(true);
     setUser(user);
+    await AsyncStorage.setItem('isLoggedIn', 'true');
+    await AsyncStorage.setItem('user', JSON.stringify(user));
   };
 
-  const logoutContext = () => {
+  const logoutContext = async () => {
     setIsLoggedIn(false);
     setUser(null);
+    await AsyncStorage.setItem('isLoggedIn', 'false');
+    await AsyncStorage.removeItem('user');
   };
 
   return (

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://143.198.220.62:3000',
+  baseURL: 'http://192.168.1.230:3000',
   timeout: 5000,
 });
 //http://localhost:3000/ibibt/searchProduct/12?page=1
