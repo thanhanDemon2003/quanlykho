@@ -43,7 +43,7 @@ const Hangxuat = ({route}) => {
       <FlatList
         data={items}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(items, index) => index.toString()}  
         numColumns={1}
         contentContainerStyle={styles.listContainer}
       />

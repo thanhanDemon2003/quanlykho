@@ -34,7 +34,7 @@ const Bottomtab = () => {
 
           return <Icon name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#3399FF',
+        tabBarActiveTintColor:'#00AFCE',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: { display: 'flex' },
       })}
@@ -45,12 +45,11 @@ const Bottomtab = () => {
           headerShown: true,
           headerTitle: 'Tồn Kho',
           headerTitleAlign: 'center',
-          headerTitleStyle: { color: '#FFFF99', fontSize: 25 },
-          headerStyle: { backgroundColor: '#3399FF' }
+          headerTitleStyle: { color: 'white', fontSize: 25 },
+          headerStyle: { backgroundColor: '#00AFCE' }
         }}
-        name="KhoScreen"
-        component={() => <Kho user={user} />}
-      />
+        name="KhoScreen">{() => <Kho user={user} />}
+        </Tab.Screen>
       <Tab.Screen
         options={{
           tabBarLabel: 'Nhập Kho',
@@ -60,9 +59,8 @@ const Bottomtab = () => {
           headerTitleStyle: { color: '#FFFF99', fontSize: 25 },
           headerStyle: { backgroundColor: '#3399FF' }
         }}
-        name="NhapkhoScreen"
-        component={() => <Nhapkho user={user} />}
-      />
+        name="NhapkhoScreen">{() => <Nhapkho user={user} />}
+        </Tab.Screen>
       <Tab.Screen
         options={{
           tabBarLabel: 'Xuất Kho',
@@ -72,21 +70,19 @@ const Bottomtab = () => {
           headerTitleStyle: { color: '#FFFF99', fontSize: 25 },
           headerStyle: { backgroundColor: '#3399FF' }
         }}
-        name="XuatkhoScreen"
-        component={() => <Xuatkho user={user} />}
-      />
+        name="XuatkhoScreen">{() => <Xuatkho user={user} />}
+        </Tab.Screen>
        <Tab.Screen
         options={{
-          tabBarLabel: 'Khác Kho',
+          tabBarLabel: 'Khác',
           headerShown: true,
           headerTitle: 'Khác',
           headerTitleAlign: 'center',
           headerTitleStyle: { color: '#FFFF99', fontSize: 25 },
           headerStyle: { backgroundColor: '#3399FF' }
         }}
-        name="Information"
-        component={() => <Information user={user} />}
-      />
+        name="Information">{() => <Information user={user} />}
+        </Tab.Screen>
     </Tab.Navigator>
   );
 };

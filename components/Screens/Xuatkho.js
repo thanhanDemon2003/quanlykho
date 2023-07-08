@@ -41,6 +41,9 @@ const Xuatkho = (props) => {
       }
     } catch (error) {
       console.log('error>>', error);
+      const savedData = await AsyncStorage.getItem('itemsXuat');
+      const data = JSON.parse(savedData);
+      setItems(data);
     }
   };
 
@@ -66,8 +69,8 @@ const Xuatkho = (props) => {
       <FlatList
         data={items}
         renderItem={renderItem}
-        keyExtractor={(item) => item.ID_OBT}
         numColumns={1}
+        keyExtractor={(items, index) => index.toString()} 
         contentContainerStyle={styles.listContainer}
         onEndReached={handleLoadMore}
         onEndReachedThreshold={1}

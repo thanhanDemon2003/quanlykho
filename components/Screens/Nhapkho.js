@@ -28,7 +28,7 @@ const Nhapkho = (props) => {
       if (state.isConnected) {
       const response = await axios.getImportItemsPage(user, page);
       data = response.items;
-      await AsyncStorage.setItem('itemsNhap', JSON.stringify(data));
+      await AsyncStorage.setItem('', JSON.stringify(data));
       } else {
         const savedData = await AsyncStorage.getItem('itemsNhap');
         data = JSON.parse(savedData);
@@ -41,6 +41,9 @@ const Nhapkho = (props) => {
       }
     } catch (error) {
       console.log('error>>', error);
+      const savedData = await AsyncStorage.getItem('itemsNhap');
+      const data = JSON.parse(savedData);
+      setItems(data);
     }
   };
 
@@ -65,7 +68,7 @@ const Nhapkho = (props) => {
       <FlatList
         data={items}
         renderItem={renderItem}
-        keyExtractor={(item) => item.ID_IBT}
+        keyExtractor={(items, index) => index.toString()} 
         numColumns={1}
         contentContainerStyle={styles.listContainer}
         onEndReached={handleLoadMore}

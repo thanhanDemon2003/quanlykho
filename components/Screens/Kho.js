@@ -6,14 +6,14 @@ import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 
-const Kho = ({user}) => {
+const Kho = ({ user }) => {
 
 
   console.log(user)
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
   const [searchTerm, setsearchTerm] = useState('');
-
+  
   useEffect(() => {
     fetchData();
   }, []);
@@ -22,7 +22,7 @@ const Kho = ({user}) => {
     try {
       const state = await NetInfo.fetch();
       let data;
-  
+
       if (state.isConnected) {
         const response = await axios.getItemsPage(user, page, searchTerm);
         data = response.products;
@@ -31,7 +31,7 @@ const Kho = ({user}) => {
         const savedData = await AsyncStorage.getItem('products');
         data = JSON.parse(savedData);
       }
-  
+
       if (page === 1) {
         setItems(data);
       } else {
@@ -39,7 +39,11 @@ const Kho = ({user}) => {
       }
     } catch (error) {
       console.log('error>>', error);
+      const savedData = await AsyncStorage.getItem('products');
+      const data = JSON.parse(savedData);
+      setItems(data);
     }
+    
   };
 
   const handleSearchButtonPress = () => {
@@ -49,19 +53,28 @@ const Kho = ({user}) => {
   };
 
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }) => {
+    const productName = item.TEN_SP.split(" - ")[0];
+  return(
     <View style={styles.item}>
       <View style={styles.itemContent}>
-        <Text style={styles.text}>{item.TEN_SP}</Text>
-        <Text style={styles.text1}>Hạn sử dụng: {moment(item.HSD).format('DD-MM-YYYY')}</Text>
-        <Text style={styles.text1}>Ref: {item.REF}</Text>
-        <View style={styles.itemDetails}>
-          <Text style={styles.detailText}>{item.SL_TONKHO} Thùng</Text>
-          <Text style={styles.detailText1}>{item.KHOI_LUONG} Kg</Text>
+        <Text style={styles.text}>{productName}</Text>
+        <View style={styles.itemRow}>
+          <Text style={styles.labelText}>HSD: {moment(item.HSD).format('DD-MM-YYYY')}</Text>
+       {item.SO_CONT &&  <Text style={styles.valueText1}>Số cont: {item.SO_CONT}</Text>}
+        </View>
+        <View style={styles.itemRow}>
+          <Text style={styles.labelText}>Ref: {item.REF}</Text>
+        </View>
+        <View style={styles.itemRow}>
+          <Text style={styles.valueText2}>{item.SL_TONKHO} Thùng</Text>
+          <Text style={styles.valueText}>{item.KHOI_LUONG} Kg</Text>
         </View>
       </View>
     </View>
-  );
+    )
+  }
+  
 
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
@@ -69,6 +82,10 @@ const Kho = ({user}) => {
 
   return (
     <View style={styles.container}>
+      <View style={{  flexDirection: 'column', // Hiển thị các phần tử ngang hàng // Canh giữa các phần tử theo chiều dọc
+    paddingHorizontal: 'center',
+    marginBottom: 5, backgroundColor:'white'
+     }}>
       <TextInput
         style={styles.searchBar}
         placeholder="Tìm kiếm..."
@@ -78,11 +95,12 @@ const Kho = ({user}) => {
       <TouchableOpacity style={styles.searchButton} onPress={handleSearchButtonPress}>
         <Text style={styles.searchButtonText}>Tìm kiếm</Text>
       </TouchableOpacity>
+      </View>
       <FlatList
         data={items}
         renderItem={renderItem}
         numColumns={1}
-        keyExtractor={(item) => item}
+        keyExtractor={(items, index) => index.toString()} 
         contentContainerStyle={styles.listContainer}
         onEndReached={handleLoadMore}
         onEndReachedThreshold={1}
@@ -93,7 +111,9 @@ const Kho = ({user}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    position: 'relative',
+    backgroundColor:'white'
   },
   searchBar: {
     left: 10,
@@ -110,7 +130,7 @@ const styles = StyleSheet.create({
     width: 100,
     marginLeft: 280,
     marginTop: -50,
-    backgroundColor: '#ccc',
+    backgroundColor: '#00AFCE',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -119,62 +139,64 @@ const styles = StyleSheet.create({
   },
   searchButtonText: {
     color: 'white',
-    fontWeight: 'bold',
+    fontWeight: '1000',
   },
   listContainer: {
-    top: 5,
+    
+    top: 20,
     flexGrow: 1,
-    justifyContent: 'flex-start',
-    paddingHorizontal: 10,
-    backgroundColor: '#F2F2F2'
+    justifyContent: 'flex-start',   
   },
   item: {
     alignItems: 'left',
-    justifyContent: 'Space-between',
-    marginVertical: 10,
-    height: 130,
+    justifyContent: 'center',
+    height: 160,
     backgroundColor: '#fff',
-    borderRadius: 10,
     borderColor: 'black',
     borderWidth: 0.5,
-
   },
   itemContent: {
     position: 'position',
     margin: 10
   },
   text: {
-    left: 3,
+    
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '400',
     color: 'black'
   },
-  text1: {
-    marginTop: 2,
-    left: 3,
-    fontSize: 15,
-    fontWeight: 'normal',
-    color: 'black'
-  },
-  itemDetails: {
-    position: 'absolute',
+  itemRow: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
-    marginTop: 90
+    alignItems: 'center',
+    marginTop: 5,
   },
-  detailText: {
+  labelText: {
     flex: 1,
-    textAlign:'left',
     fontSize: 15,
-    fontWeight: 'bold',
-    color: 'blue',
+    fontWeight: '300',
+    color: 'black'
   },
-  detailText1: {
-    flex: 0,
-    textAlign:'right',
+  valueText: {
+    top: 10,
+    textAlign: 'right',
+    flex: 1,
     fontSize: 15,
     fontWeight: 'bold',
-    color: 'blue',
+    color: '#00AFCE'
+  },
+  valueText2: {
+    flex: 1,
+    top: 10,
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#00AFCE'
+  },
+  valueText1: {
+    textAlign: 'right',
+    flex: 1,
+    fontSize: 15,
+    fontWeight: '300',
+    color: 'black'
   },
 });
 

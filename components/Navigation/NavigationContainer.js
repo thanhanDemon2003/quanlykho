@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 const AppNavigation = () => {
   return (
     <Stack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
-      <Stack.Screen options={{ headerShown: false }} name="Bottomtab" component={Bottomtab}  />
+      <Stack.Screen options={{ headerTitle: 'Quay lại', headerShown: false }} name="Bottomtab" component={Bottomtab}  />
       <Stack.Screen options={{ headerTitle: 'Chi tiết hàng nhập' }} name="Chitiet" component={Hang} />
       <Stack.Screen options={{ headerTitle: 'Chi tiết hàng xuất' }} name="Hangxuat" component={Hangxuat} />
     </Stack.Navigator>

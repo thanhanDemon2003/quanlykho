@@ -44,7 +44,7 @@ const Hang = ({route}) => {
       <FlatList
         data={items}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.ID_OBT}
         numColumns={1}
         contentContainerStyle={styles.listContainer}
       />
@@ -54,13 +54,13 @@ const Hang = ({route}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor:'#fff'
   },
   listContainer: {
     flexGrow: 1,
     justifyContent: 'flex-start',
     paddingHorizontal: 10,
-    backgroundColor: '#F2F2F2'
   },
   item: {
     top:20,
@@ -68,6 +68,9 @@ const styles = StyleSheet.create({
     justifyContent: 'Space-between',
     marginVertical: 10,
     height: 170,
+    backgroundColor: '#fff',
+    borderColor: 'black',
+    borderWidth: 2,
 
   },
   itemContent: {
@@ -75,7 +78,6 @@ const styles = StyleSheet.create({
     margin: 10
   },
   text: {
-
     left: 5,
     fontSize: 16,
     fontWeight: 'bold',
