@@ -1,15 +1,11 @@
-import React, { useEffect, useState  } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from '../API/Api';
 import moment from 'moment';
 
-
-const Hangxuat = ({route}) => {
-  
+const Hangxuat = ({ route }) => {
   const [items, setItems] = useState([]);
-  const {sp} = route.params;
-  console.log(sp)
-
+  const { sp } = route.params;
 
   useEffect(() => {
     fetchData();
@@ -29,21 +25,24 @@ const Hangxuat = ({route}) => {
     <View style={styles.item}>
       <View style={styles.itemContent}>
         <Text style={styles.text}>Tên sản phẩm: {item.TEN_SP}</Text>
-        <Text style={styles.text1}>Hạn sử dụng: {moment(item.HSD).format('DD-MM-YYYY')}</Text>
-        <Text style={styles.text1}>Ref: {item.REF}</Text>
+        <View style={styles.itemRow}>
+        <Text style={styles.text1}>HSD: {moment(item.HSD).format('DD-MM-YYYY')}</Text>
+        <Text style={styles.text2}>Ref: {item.REF}</Text>
+        </View>
         <View style={styles.itemDetails}>
-        <Text style={styles.detailText}>{item.SL_XUAT} Thùng - </Text>
-        <Text style={styles.detailText1}> {item.KL_XUAT} Kg</Text>
+          <Text style={styles.detailText}>{item.SL_XUAT} Thùng - </Text>
+          <Text style={styles.detailText1}> {item.KL_XUAT} Kg</Text>
         </View>
       </View>
     </View>
   );
+
   return (
     <View style={styles.container}>
       <FlatList
         data={items}
         renderItem={renderItem}
-        keyExtractor={(items, index) => index.toString()}  
+        keyExtractor={(item, index) => index.toString()}
         numColumns={1}
         contentContainerStyle={styles.listContainer}
       />
@@ -53,56 +52,81 @@ const Hangxuat = ({route}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   listContainer: {
     flexGrow: 1,
     justifyContent: 'flex-start',
-    paddingHorizontal: 10,
-    backgroundColor: '#F2F2F2'
+    backgroundColor: '#F2F2F2',
+    backgroundColor:'white'
+
   },
   item: {
-    top:20,
     alignItems: 'left',
     justifyContent: 'Space-between',
-    marginVertical: 10,
     height: 170,
-
+    backgroundColor: '#fff',
+    borderColor: 'black',
+    borderWidth: 0.5,
   },
   itemContent: {
     position: 'relative',
-    margin: 10
+    margin: 10,
   },
   text: {
-
     left: 5,
     fontSize: 16,
-    fontWeight: 'bold',
-    color: 'black'
+    fontWeight: 'medium',
+    color: 'black',
+    fontFamily: 'seguisb',
+  },
+  itemRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
   },
   text1: {
-    top:20,
+    flex:0,
+    top: 20,
     left: 5,
     fontSize: 16,
     fontWeight: 'normal',
-    color: 'black'
+    color: 'black',
+    fontFamily: 'Segoe UI',
+  },
+  text2: {
+    textAlign: 'right',
+    flex:1,
+    top:20,
+    fontSize: 16,
+    fontWeight: 'normal',
+    color: 'black',
+    fontFamily: 'Segoe UI'
+
   },
   itemDetails: {
     position:'absolute',
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     marginTop:130
   },
   detailText: {
-    left:5,
+    flex:0,
+    left: 5,
     fontSize: 15,
     fontWeight: 'bold',
-    color: 'blue',      
+    color: '#00AFCE',  
+    fontFamily: 'seguisb'
+
   },
   detailText1: {
+    textAlign: 'right',
+    flex:1,
     fontSize: 15,
     fontWeight: 'bold',
-    color: 'blue',
+    color: '#00AFCE',
+    fontFamily: 'seguisb'
+
   },
 });
 

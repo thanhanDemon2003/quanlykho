@@ -54,11 +54,10 @@ const Kho = ({ user }) => {
 
 
   const renderItem = ({ item }) => {
-    const productName = item.TEN_SP.split(" - ")[0];
   return(
     <View style={styles.item}>
       <View style={styles.itemContent}>
-        <Text style={styles.text}>{productName}</Text>
+        <Text style={styles.text} >{item.TEN_SP}</Text>
         <View style={styles.itemRow}>
           <Text style={styles.labelText}>HSD: {moment(item.HSD).format('DD-MM-YYYY')}</Text>
        {item.SO_CONT &&  <Text style={styles.valueText1}>Số cont: {item.SO_CONT}</Text>}
@@ -84,7 +83,7 @@ const Kho = ({ user }) => {
     <View style={styles.container}>
       <View style={{  flexDirection: 'column', // Hiển thị các phần tử ngang hàng // Canh giữa các phần tử theo chiều dọc
     paddingHorizontal: 'center',
-    marginBottom: 5, backgroundColor:'white'
+    marginBottom: 5, backgroundColor:'white',borderBottomWidth: 0.5, 
      }}>
       <TextInput
         style={styles.searchBar}
@@ -127,6 +126,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   searchButton: {
+    marginBottom:20,
     width: 100,
     marginLeft: 280,
     marginTop: -50,
@@ -139,31 +139,29 @@ const styles = StyleSheet.create({
   },
   searchButtonText: {
     color: 'white',
-    fontWeight: '1000',
+    fontWeight: '600',
   },
   listContainer: {
-    
-    top: 20,
     flexGrow: 1,
     justifyContent: 'flex-start',   
   },
   item: {
     alignItems: 'left',
     justifyContent: 'center',
-    height: 160,
+    height: 130,
     backgroundColor: '#fff',
     borderColor: 'black',
-    borderWidth: 0.5,
-  },
+    borderBottomWidth: 0.5,  
+     },
   itemContent: {
     position: 'position',
-    margin: 10
+    margin: 10,
   },
   text: {
-    
     fontSize: 16,
-    fontWeight: '400',
-    color: 'black'
+    fontWeight: 'medium',
+    color: 'black',
+    fontFamily: 'seguisb'
   },
   itemRow: {
     flexDirection: 'row',
@@ -173,30 +171,33 @@ const styles = StyleSheet.create({
   labelText: {
     flex: 1,
     fontSize: 15,
-    fontWeight: '300',
-    color: 'black'
+    fontWeight: '100',
+    color: 'black',
+    fontFamily: 'Segoe UI'
   },
   valueText: {
-    top: 10,
     textAlign: 'right',
     flex: 1,
     fontSize: 15,
     fontWeight: 'bold',
-    color: '#00AFCE'
+    color: '#00AFCE',
+    fontFamily: 'seguisb'
+    
   },
   valueText2: {
     flex: 1,
-    top: 10,
     fontSize: 15,
     fontWeight: 'bold',
-    color: '#00AFCE'
+    color: '#00AFCE',
+    fontFamily: 'seguisb'
   },
   valueText1: {
     textAlign: 'right',
     flex: 1,
     fontSize: 15,
-    fontWeight: '300',
-    color: 'black'
+    fontWeight: '200',
+    color: 'black',
+    fontFamily: 'Segoe UI'
   },
 });
 

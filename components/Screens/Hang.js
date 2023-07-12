@@ -10,7 +10,7 @@ const Hang = ({route}) => {
   const [items, setItems] = useState([]);
   const {sp} = route.params;
   console.log(sp)
-
+  
 
   useEffect(() => {
     fetchData();
@@ -30,11 +30,13 @@ const Hang = ({route}) => {
     <View style={styles.item}>
       <View style={styles.itemContent}>
         <Text style={styles.text}>Tên sản phẩm: {item.TEN_SP}</Text>
-        <Text style={styles.text1}>Hạn sử dụng: {moment(item.HSD).format('DD-MM-YYYY')}</Text>
-        <Text style={styles.text1}>Ref: {item.REF}</Text>
+        <View style={styles.itemRow}>
+        <Text style={styles.text1}>HSD: {moment(item.HSD).format('DD-MM-YYYY')}</Text>
+        <Text style={styles.text2}>Ref: {item.REF}</Text>
+        </View>
         <View style={styles.itemDetails}>
-        <Text style={styles.detailText}>{item.SO_LUONG} Thùng - </Text>
-        <Text style={styles.detailText1}> {item.KHOI_LUONG} Kg</Text>
+        <Text style={styles.detailText}>{item.SO_LUONG} Thùng </Text>
+        <Text style={styles.detailText1}>{item.KHOI_LUONG} Kg </Text>
         </View>
       </View>
     </View>
@@ -44,7 +46,7 @@ const Hang = ({route}) => {
       <FlatList
         data={items}
         renderItem={renderItem}
-        keyExtractor={(item) => item.ID_OBT}
+        keyExtractor={(items, index) => index.toString()}
         numColumns={1}
         contentContainerStyle={styles.listContainer}
       />
@@ -55,22 +57,21 @@ const Hang = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'#fff'
   },
   listContainer: {
     flexGrow: 1,
     justifyContent: 'flex-start',
-    paddingHorizontal: 10,
+    backgroundColor: 'white'
+
+
   },
   item: {
-    top:20,
     alignItems: 'left',
     justifyContent: 'Space-between',
-    marginVertical: 10,
     height: 170,
     backgroundColor: '#fff',
     borderColor: 'black',
-    borderWidth: 2,
+    borderBottomWidth: 0.5,
 
   },
   itemContent: {
@@ -80,32 +81,59 @@ const styles = StyleSheet.create({
   text: {
     left: 5,
     fontSize: 16,
-    fontWeight: 'bold',
-    color: 'black'
+    fontWeight: 'medium',
+    color: 'black',
+    fontFamily: 'seguisb'
+
+  },
+  itemRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
   },
   text1: {
+    flex:0,
     top:20,
     left: 5,
     fontSize: 16,
     fontWeight: 'normal',
-    color: 'black'
+    color: 'black',
+    fontFamily: 'Segoe UI'
+
+  },
+  text2: {
+    textAlign: 'right',
+    flex:1,
+    top:20,
+    fontSize: 16,
+    fontWeight: 'normal',
+    color: 'black',
+    fontFamily: 'Segoe UI'
+
   },
   itemDetails: {
     position:'absolute',
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     marginTop:130
   },
   detailText: {
+    flex:0,
     left: 5,
     fontSize: 15,
     fontWeight: 'bold',
-    color: 'blue',      
+    color: '#00AFCE',  
+    fontFamily: 'seguisb'
+
   },
   detailText1: {
+    textAlign: 'right',
+    flex:1,
     fontSize: 15,
     fontWeight: 'bold',
-    color: 'blue',
+    color: '#00AFCE',
+    fontFamily: 'seguisb'
+
   },
 });
 

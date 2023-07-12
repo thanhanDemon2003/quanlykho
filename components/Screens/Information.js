@@ -17,9 +17,9 @@ const Information = ({user}) => {
     };
   return (
     <View style={{flex: 1, alignItems: 'center'}}>
-      <Text style={{left:-40, fontSize: 30, color: 'black', marginTop: 30}}>User Id_KH: {user}</Text>
+      <Text style={{ fontSize: 30, color: 'black', marginTop: 30}}>User: {user}</Text>
       <TouchableOpacity
-      style={{top: 100,height:50, width:200, alignItems: 'center', backgroundColor: '#FF9900', borderRadius: 10, justifyContent:'center'}}>
+      style={{top:30,height:50, width:200, alignItems: 'center', backgroundColor: '#FF9900', borderRadius: 10, justifyContent:'center'}}>
         <Text style={{fontSize:20 }} onPress={handleLogout}>Đăng Xuất</Text></TouchableOpacity>
         {/* () => navigation.navigate('Login') */}
     </View>

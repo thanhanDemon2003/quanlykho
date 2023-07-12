@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { AuthProvider, AuthContext } from './components/Context/Appcontext';
-import AppNavigation from './components/Navigation/NavigationContainer';
+import AppNavigationContainer from './components/Navigation/NavigationContainer';
 import LoginForm from './components/Login';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -13,7 +13,7 @@ const NavigationFinal =() =>{
   console.log('......', isLoggedIn);
   return(
     <NavigationContainer>
-    {isLoggedIn ? <AppNavigation /> : <LoginForm />}
+    {isLoggedIn ? <AppNavigationContainer /> : <LoginForm />}
   </NavigationContainer>
   )
 }

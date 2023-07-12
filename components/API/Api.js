@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://172.16.2.156:3000',
-  timeout: 1000,
+  baseURL: 'http://192.168.1.106:3000',
+  timeout: 3000,
 });
 //http://localhost:3000/ibibt/searchProduct/12?page=1
 const getItemsPage = async (user, page, searchTerm) => {
@@ -18,7 +18,6 @@ const getItemsPage = async (user, page, searchTerm) => {
 const getImportItemsPage = async (user, page) => {
   try {
     const response = await api.get(`/ibibt/getimportpage/${user}?page=${page}`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;
@@ -28,7 +27,6 @@ const getImportItemsPage = async (user, page) => {
 const getExportItemsPage = async (user, page) => {
   try {
     const response = await api.get(`/ibibt/getexportpage/${user}?page=${page}`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;
@@ -52,6 +50,28 @@ const detailSanPhamXuat = async (sp) => {
     throw error;
   }
 }
+const locNhapHang = async (user, filterType, page) => {
+  const {value} = filterType;
+  console.log(user, filterType, page);
+  try {
+    const response = await api.get(`/ibibt/locnhaphang/${user}/${value}?page=${page}`);
+    console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+const locXuatHang = async (user, filterType, page) => {
+  const {value} = filterType;
+  try {
+    const response = await api.get(`/ibibt/locxuathang/${user}/${value}?page=${page}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 const Login = async (username, password) => {
   try {
     const response = await api.post(`/ibibt/Login`, {
@@ -77,5 +97,7 @@ export default {
   getImportItemsPage,
   Login,
   detailSanPham,
-  detailSanPhamXuat
+  detailSanPhamXuat,
+  locXuatHang,
+  locNhapHang
 };
